@@ -118,3 +118,109 @@ public class LoginServlet extends HttpServlet {
 }
 ```
 
+### 六、Servlet中文问题
+
+####1、HTML的head标签中注明向服务器提交的编码方式
+
+```html
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+```
+
+####2、服务器进行相应的解码（接受参数）和编码（response）
+
+在请求方法相对应的服务器端处理方法中添加如下代码
+
+```java
+req.setCharacterEncoding="UTF-8";//告诉服务器已utf-8解码
+resp.setCharacterEncoding="UTF-8";//以utf-8编码方式响应
+```
+
+### 七、Servlet跳转
+
+####1、服务器端跳转（请求转发）
+
+Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**request**的**getRequestDispatcher()**方法，把同一个请求转发到另一个对象（HTML、JSP、Servlet等）
+
+```java
+req.getRequestDispatcher("success.html").forward(req,resp);
+```
+
+####2、客服端跳转（重定向）
+
+> Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**sendRedirect()**方法（注意这里用的是**response**的方法），立即向客户端返回这个响应（在响应头中包含新请求所对应的URL），并告诉客户端必须再发送一个新的请求。
+>
+> 紧接着客户端收到响应后再发送一个请求，服务器端收到新的请求后做出相应的处理。以上两个请求互不干扰、相互独立。
+
+```java
+resp.sendRedirect("fail.html");
+```
+
+#### 3、案例
+
+> **LonginServlet.java**
+>
+> ```java
+> import java.io.IOException;
+> import java.io.PrintWriter;
+> 
+> import javax.servlet.ServletException;
+> import javax.servlet.annotation.WebServlet;
+> import javax.servlet.http.HttpServlet;
+> import javax.servlet.http.HttpServletRequest;
+> import javax.servlet.http.HttpServletResponse;
+> 
+> @WebServlet({ "/LoginServlet", "/login" })
+> public class LoginServlet extends HttpServlet {
+> 	@Override
+> 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+> 			throws ServletException, IOException {
+> 		
+> 		req.setCharacterEncoding("utf-8");//告诉服务器已utf-8解码
+> 		resp.setCharacterEncoding("UTF-8");//以utf-8编码方式响应
+> 		
+> 		String name=req.getParameter("name");
+> 		String password=req.getParameter("password");
+> 		System.out.println(name);
+> 		System.out.println(password);
+> 
+> 		String html;
+> 		if(name.equals("AlexanderBai")&&password.equals("123456")) {
+> 			req.getRequestDispatcher("success.html").forward(req, resp);
+> 		}else {
+> 			resp.sendRedirect("fail.html");
+> 		}
+> 	}
+> }
+> ```
+
+> **longin.html**
+>
+> ```html
+> <!DOCTYPE html>
+> <html>
+> <head>
+> <meta charset="UTF-8">
+> <title>登录页面</title>
+> </head>
+> <body>
+> 	<form action="login" method="post">
+> 		账号: <input type="text" name="name"> <br>
+> 		密码: <input type="password" name="password"> <br>
+> 		<input type="submit" value="登录">
+> 	</form>
+> </body>
+> </html>
+> ```
+
+> **success.html**
+>
+> ```html
+> <div style='color:green'>login success</div>
+> ```
+
+> **fail.html**
+>
+> ```html
+> <div style='color:green'>login fail</div>
+> ```
+
