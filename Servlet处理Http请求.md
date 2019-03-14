@@ -14,16 +14,14 @@
 
 ```xml
 <servlet>
-    <servlet-name>HelloServlet</servlet-name>
-    <servlet-class>HelloServlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/hello</url-pattern>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 ```
-
-
 
 ###二、部署项目
 
@@ -68,8 +66,6 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	}
 ```
 
-
-
 ######2、注意传参与form表单的name属性值相同
 
 ```html
@@ -80,11 +76,45 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 </form>
 ```
 
+### 五、实现HTML到Servlet的两种映射方式
 
+####1、上述1.4所讲的web.xml
 
+####2、使用注解（简单描述）
 
+> 实现向浏览器response登录情况
+>
+> HTML仍然使用4.2的form表单，在服务器端进行验证。
 
+```java
+import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+@WebServlet({ "/LoginServlet", "/login" })//此处使用注解实现HTML到Servlet的映射路径
+public class LoginServlet extends HttpServlet {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+			throws ServletException, IOException {
+		String name=req.getParameter("name");
+		String password=req.getParameter("password");
+		System.out.println(name);
+		System.out.println(password);
 
+		String html;
+		if(name.equals("AlexanderBai")&&password.equals("123456")) {
+			html="<div style='color:green'>success</div>";
+		}else {
+			html="<div style='color:red'>fail</div>";
+		}
+		PrintWriter out=resp.getWriter();
+		out.println(html);
+	}
+}
+```
 
