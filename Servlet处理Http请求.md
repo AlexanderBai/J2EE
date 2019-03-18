@@ -229,3 +229,23 @@ resp.sendRedirect("fail.html");
 ![1552659723712](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1552659723712.png)
 
 ![1552660524337](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1552660524337.png)
+
+### 八、JSP
+
+JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服务器转译为java文件，可以看出转译后的**.java**继承了**HttpJspBase**，而**HttpJspBase**继承了**HttpServlet**，所以JSP文件也是一个Servlet，之后再编译运行
+
+![1552913547651](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1552913547651.png)
+
+![1552913467971](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1552913467971.png)
+
+> - 转译后的.java文件位置
+>
+> > 【Eclipse】
+> >
+> > - <workspace所在目录>\.metadata\.plugins\org.eclipse.wst.server.core\tmpX\work\Catalina\<项目名称>
+> > - G:\program\Java\Eclipse\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\j2ee\org\apache\jsp
+>
+> >- 【tomcat】
+> >- <tomcat所在目录>\work\Catalina\localhost\<项目名称>
+> >
+> >
