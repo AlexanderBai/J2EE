@@ -234,7 +234,45 @@ resp.sendRedirect("fail.html");
 
 ### 八、JSP
 
+####1、认识JSP
+
 JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服务器转译为java文件，可以看出转译后的**.java**继承了**HttpJspBase**，而**HttpJspBase**继承了**HttpServlet**，所以JSP文件也是一个Servlet，之后再编译运行
+
+
+
+>- **hello.jsp**
+>
+>```jsp
+><%@ page import="java.util.Date" %>  <%-- 这一行是JSP的<@ page指令 --%>
+><%--
+>  Created by IntelliJ IDEA.
+>  User: AlexanderBai
+>  Date: 2019/3/21
+>  Time: 13:25
+>  To change this template use File | Settings | File Templates.
+>--%>
+><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+><html>
+><head>
+>    <title>Hello JSP</title>
+></head>
+><body>
+>    <%=new Date().toString()%>
+></body>
+></html>
+>```
+>
+>- ```jsp
+>  <%@ page import="java.util.Date" %> 
+>  <%-- 这一行是JSP的<@ page指令  import 导入的包以逗号分隔-->
+>  ```
+>
+>- ```jsp
+>   <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response，getWriter()进行输出 --%>
+>  <%--  response.getWriter().println(new Date().toString());  --%>
+>  ```
+
+
 
 ![1552913547651](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1552913547651.png)
 
@@ -251,3 +289,490 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 > >- <tomcat所在目录>\work\Catalina\localhost\<项目名称>
 > >
 > >
+
+#### 2、JSP页面元素
+
+- 静态内容
+  - 就是html,css,javascript等内容
+- 指令
+  - 以<%@开始 %> 结尾，比如<%@page import="java.util.*"%>
+- 表达式 <%=%>
+  - 用于输出一段html
+- Scriptlet
+  - 在<%%> 之间，可以写任何java 代码
+-  声明
+  - 在<%!%> 之间可以声明字段或者方法。但是不建议这么做。
+-  动作
+  - <jsp:include page="FileName" > 在jsp页面中包含另一个页面。
+- 注释 <%-- -- %>
+  - 不同于 html的注释 <!-- --> 通过jsp的注释，浏览器也看不到相应的代码，相当于在servlet中注释掉了
+
+![1553148897103](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553148897103.png)
+
+```java
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
+  Created by IntelliJ IDEA.
+  User: AlexanderBai
+  Date: 2019/3/21
+  Time: 14:13
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Demo</title>
+</head>
+<body>
+    <%
+        List<String> list=new ArrayList<>();
+        list.add("Today");
+        list.add("is");
+        list.add("a");
+        list.add("great");
+        list.add("day.");
+    %>
+
+    <table width="200px" align="center" border="1" cellspacing="0">
+        <%for (String str : list) {%>
+        <tr>
+            <td>
+                <%= str%>
+            </td>
+        </tr>
+        <%}%>
+    </table>
+</body>
+</html>
+```
+
+
+
+#### 3、JSP include
+
+>- demo.jsp
+>
+>  ```jsp
+>  <%@ page import="java.util.List" %>
+>  <%@ page import="java.util.ArrayList" %><%--
+>    Created by IntelliJ IDEA.
+>    User: AlexanderBai
+>    Date: 2019/3/21
+>    Time: 14:13
+>    To change this template use File | Settings | File Templates.
+>  --%>
+>  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>  <html>
+>  <head>
+>      <title>Demo</title>
+>  </head>
+>  <body>
+>      <%
+>          List<String> list=new ArrayList<>();
+>          list.add("Today");
+>          list.add("is");
+>          list.add("a");
+>          list.add("great");
+>          list.add("day.");
+>      %>
+>  
+>      <table width="200px" align="center" border="1" cellspacing="0">
+>          <%for (String str : list) {%>
+>          <tr>
+>              <td>
+>                  <%= str%>
+>              </td>
+>          </tr>
+>          <%}%>
+>      </table>
+>      <jsp:include page="footer.jsp">
+>          <jsp:param name="year" value="2019"/>
+>      </jsp:include>
+>  </body>
+>  </html>
+>  ```
+>
+>- footer.jsp
+>
+>  ```jsp
+>  <%--
+>    Created by IntelliJ IDEA.
+>    User: AlexanderBai
+>    Date: 2019/3/21
+>    Time: 14:27
+>    To change this template use File | Settings | File Templates.
+>  --%>
+>  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>  <html>
+>  <head>
+>      <title>footer</title>
+>  </head>
+>  <body>
+>      <hr>
+>      <p style="text-align: center">
+>          copyrigth@<%=request.getParameter("year")%>
+>      </p>
+>  </body>
+>  </html>
+>  ```
+>
+>- 运行结果
+>
+>  ![1553150400585](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553150400585.png)
+>
+>- ```php+HTML
+>  因为指令 <%@include 会导致两个jsp合并成为同一个java文件，所以就不存在传参的问题，demo.jsp 里定义的变量，直接可以在footer.jsp中访问。
+>  而动作<jsp:include />其实是对footer.jsp进行了一次独立的访问，那么就有传参的需要。
+>  ```
+
+#### 4、cookie与session
+
+#####（1）、认识cookie
+
+- cookie是一种**浏览器与服务器交互的数据**，平常我们登录各个网站，会显示多长时间内保持登录状态，就是有cookie实现。
+- cookie由**服务器创建**，但不会保存在服务器上，创建好之后发送给浏览器，浏览器**保存在用户本地**
+- 再次访问网站时，带上这个cooki
+
+> - **setCookie.jsp**
+>
+>   ```jsp
+>   <%--
+>     Created by IntelliJ IDEA.
+>     User: AlexanderBai
+>     Date: 2019/3/21
+>     Time: 14:55
+>     To change this template use File | Settings | File Templates.
+>   --%>
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <html>
+>   <head>
+>       <title>setCookie</title>
+>   </head>
+>   <body>
+>       <%
+>           Cookie cookie = new Cookie("name", "Alexander");
+>           cookie.setMaxAge(60);//一分钟
+>           cookie.setPath("/");//表示访问服务器的所有应用都会提交这个Cookie到服务器，如果其值是/a，你们就表示仅仅能访问/a路径的时候才会提交
+>           response.addCookie(cookie);
+>       %>
+>       <a href="getCookie.jsp">跳转到获取Cookie的页面</a>
+>   </body>
+>   </html>
+>   ```
+>
+> - **getCookie.jsp**
+>
+>   ```jsp
+>   <%--
+>     Created by IntelliJ IDEA.
+>     User: AlexanderBai
+>     Date: 2019/3/21
+>     Time: 14:55
+>     To change this template use File | Settings | File Templates.
+>   --%>
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <html>
+>   <head>
+>       <title>getCookie</title>
+>   </head>
+>   <body>
+>   
+>       <%
+>           Cookie[] cookies=request.getCookies();
+>           if (cookies != null) {
+>               for (int i = 0; i < cookies.length; i++) {
+>                   out.print(cookies[i].getName()+":"+cookies[i].getValue()+"<br>");
+>               }
+>           }
+>       %>
+>   </body>
+>   </html>
+>   ```
+>
+> - ![1553153012112](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553153012112.png)
+
+##### （2）、cookie原理示意图
+
+![](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553154152116.png)
+
+- **session（会话）：**
+
+  - 指用户打开一个网站，不管在**这个网站中**浏览了多少页面，点击了多少链接，知道用户关闭浏览器为止，都属于同一个会话
+  - 比如我们登录了淘宝网之后，不管我们跳到哪一个商店或是有多少货物添加了购物车，始终都是在自己所属的session里面，实质上session起到一个跟踪用户的作用。
+
+  > - **setSession.jsp**
+  >
+  >   ```jsp
+  >   <%--
+  >     Created by IntelliJ IDEA.
+  >     User: AlexanderBai
+  >     Date: 2019/3/21
+  >     Time: 14:55
+  >     To change this template use File | Settings | File Templates.
+  >   --%>
+  >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  >   <html>
+  >   <head>
+  >       <title>setSession</title>
+  >   </head>
+  >   <body>
+  >       <%
+  >           session.setAttribute("name","AlexanderBai");
+  >       %>
+  >       <a href="getSession.jsp">跳转到获取Session的页面</a>
+  >   </body>
+  >   </html>
+  >   ```
+  >
+  > - **getSession.jsp**
+  >
+  >   ```jsp
+  >   <%--
+  >     Created by IntelliJ IDEA.
+  >     User: AlexanderBai
+  >     Date: 2019/3/21
+  >     Time: 14:55
+  >     To change this template use File | Settings | File Templates.
+  >   --%>
+  >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  >   <html>
+  >   <head>
+  >       <title>getSession</title>
+  >   </head>
+  >   <body>
+  >       <%
+  >           String name= (String) session.getAttribute("name");
+  >       %>
+  >       session中的name：
+  >       <%=
+  >          name
+  >       %>
+  >   </body>
+  >   </html>
+  >   ```
+
+#### （2）、session原理示意图
+
+![1553155409479](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553155409479.png)
+
+- 有些时候浏览器可以关闭cookie，这是没有cookie，为防止一直创建session对象，可以使用
+
+  ```java
+  response.encodeURL("getSession.jsp")
+  ```
+
+  > **response.encodeURL方法会把getSession.jsp这个url转换为getSession.jsp;jsessionid=22424AEA86ADBE89F335EEB649D997A8**
+
+- **sessionid:**session标识，由服务器创建session时创建，在Tomcat中称为jse
+
+- 这时**JSESSIONID**作为cookie有效，JSESSIONID由服务器创建，
+
+- [cookie、session、sessionid、jsessionid的区别与联系](http://www.cnblogs.com/fnng/archive/2012/08/14/2637279.html)
+
+#### 5、JSP作用域
+
+![1553156611706](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553156611706.png)
+
+> - pageContext
+>
+>   - setContext.jsp
+>
+>   ```jsp
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>       <%
+>           pageContext.setAttribute("name","AlexanderBai");
+>       %>
+>       <%=pageContext.getAttribute("name")%>
+>   ```
+>
+>   - getContex t.jsp
+>
+>   ```jsp
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %
+>       <%=pageContext.getAttribute("name")%>
+>   ```
+
+> - RequestContext
+>
+>   - setContext.jsp
+>
+>     ```jsp
+>     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>         <%
+>             request.setAttribute("name","AlexanderBai");
+>         %>
+>     ```
+>
+>   - getContex t.jsp
+>
+>     ```jsp
+>     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>         <%=Request.getAttribute("name")%>
+>     ```
+>
+>     -   如果发生了**服务端跳转**，从setContext.jsp跳转到getContext.jsp，这其实，**还是一次请求**。 所以在getContext.jsp中，可以取到在requestContext中设置的值
+>
+>       这也是一种**页面间传递数据的方式**  
+>
+>       > - 客服端跳转
+>       >
+>       > - ```
+>       >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>       >       <%
+>       >           request.setAttribute("name","AlexanderBai");
+>       >       %>
+>       >    <jsp:forward page="getContext.jsp"/> 
+>       >   ```
+>       >
+>       > - 服务器端跳转
+>       >
+>       > - ```jsp
+>       >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>       >       <%
+>       >           request.setAttribute("name","AlexanderBai");
+>       >           response.sendRedirect("getContext.jsp");
+>       >       %>
+>       >   ```
+
+
+
+> - SessionRequestContext
+>
+>   - setContext.jsp
+>
+>     ```jsp
+>     
+>     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>     
+>         <%
+>             session.setAttribute("name","AlexanderBai");
+>             response.sendRedirect("getContext.jsp");
+>         %>
+>     ```
+>
+>   - getContex t.jsp
+>
+>     ```jsp
+>     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>         <%=session.getAttribute("name")%>
+>     ```
+
+> - ApplicationContext
+>
+> - 在JSP中使用application对象， application对象是**ServletContext接口的实例**
+>   也可以通过 request.getServletContext()来获取。
+>   所以 application == request.getServletContext() 会返回true
+>   `application映射的就是web应用本身。`
+>
+>   - setContext.jsp
+>
+>   ```jsp
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>       <%
+>           application.setAttribute("name","AlexanderBai");
+>       %>
+>       <%=application.getAttribute("name")%>
+>   ```
+>
+>   - getContex t.jsp
+>
+>   ```jsp
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>       <%=application.getAttribute("name")%>
+>   ```
+
+
+
+#### 6、JSP隐式对象
+
+![1553160108243](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553160108243.png)
+
+- page.jsp
+
+  ```jsp
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  page:<%=page%>
+  <br>
+  this:<%=this%>
+  ```
+
+- **config**
+
+- >- web.xml
+  >
+  >  ```
+  >  <?xml version="1.0" encoding="UTF-8"?>
+  >  <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  >           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  >           xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  >           version="4.0">
+  >  
+  >      <!-- 把testconfig.jsp配置为一个Servlet-->
+  >      <servlet>
+  >          <servlet-name>testconfig</servlet-name>
+  >          <jsp-file>/testconfig.jsp</jsp-file>
+  >  
+  >          <!-- 配置初始化参数-->
+  >          <init-param>
+  >              <param-name>database-ip</param-name>
+  >              <param-value>127.0.0.1</param-value>
+  >          </init-param>
+  >      </servlet>
+  >  
+  >      <!--将路径testconfig映射到testconfig.jsp -->
+  >      <servlet-mapping>
+  >          <servlet-name>testconfig</servlet-name>
+  >          <url-pattern>/testconfig</url-pattern>
+  >      </servlet-mapping>
+  >      
+  >  </web-app>
+  >  ```
+  >
+  >- testconfig.jsp
+  >
+  >  ```jsp
+  >  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  >  database-ip:<%=config.getInitParameter("database-ip")%>
+  >  ```
+
+- exception
+
+  > - try.jsp
+  >
+  >   ```jsp
+  >   
+  >   <%@page
+  >           contentType="text/html;charset=UTF-8" language="java"
+  >           errorPage="catch.jsp"
+  >   %>
+  >   <%
+  >           int[] a = new int[10];
+  >           a[20]=2;
+  >   %>
+  >   ```
+  >
+  > - catch.jsp
+  >
+  >   ```jsp
+  >   
+  >   <%@ page
+  >           contentType="text/html;charset=UTF-8" language="java"
+  >           isErrorPage="true"
+  >   %>
+  >   <%=exception%>
+  >   ```
+
+  
+
+  #### 7、JSTL
+
+  #### 8、EL表达式语言
+
+  
+
+  
+
+
+
+
+
