@@ -245,19 +245,19 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >```jsp
 ><%@ page import="java.util.Date" %>  <%-- 这一行是JSP的<@ page指令 --%>
 ><%--
->  Created by IntelliJ IDEA.
->  User: AlexanderBai
->  Date: 2019/3/21
->  Time: 13:25
->  To change this template use File | Settings | File Templates.
+>Created by IntelliJ IDEA.
+>User: AlexanderBai
+>Date: 2019/3/21
+>Time: 13:25
+>To change this template use File | Settings | File Templates.
 >--%>
 ><%@ page contentType="text/html;charset=UTF-8" language="java" %>
 ><html>
 ><head>
->    <title>Hello JSP</title>
+><title>Hello JSP</title>
 ></head>
 ><body>
->    <%=new Date().toString()%>
+><%=new Date().toString()%>
 ></body>
 ></html>
 >```
@@ -266,11 +266,25 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >  <%@ page import="java.util.Date" %> 
 >  <%-- 这一行是JSP的<@ page指令  import 导入的包以逗号分隔-->
 >  ```
+>```
+>
+>```
+>
+>```
+>
+>```
 >
 >- ```jsp
->   <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response，getWriter()进行输出 --%>
+>  <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response，getWriter()进行输出 --%>
 >  <%--  response.getWriter().println(new Date().toString());  --%>
 >  ```
+>```
+>
+>```
+>
+>```
+>
+>```
 
 
 
@@ -352,78 +366,93 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 
 >- demo.jsp
 >
->  ```jsp
->  <%@ page import="java.util.List" %>
->  <%@ page import="java.util.ArrayList" %><%--
->    Created by IntelliJ IDEA.
->    User: AlexanderBai
->    Date: 2019/3/21
->    Time: 14:13
->    To change this template use File | Settings | File Templates.
->  --%>
->  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->  <html>
->  <head>
->      <title>Demo</title>
->  </head>
->  <body>
->      <%
->          List<String> list=new ArrayList<>();
->          list.add("Today");
->          list.add("is");
->          list.add("a");
->          list.add("great");
->          list.add("day.");
->      %>
->  
->      <table width="200px" align="center" border="1" cellspacing="0">
->          <%for (String str : list) {%>
->          <tr>
->              <td>
->                  <%= str%>
->              </td>
->          </tr>
->          <%}%>
->      </table>
->      <jsp:include page="footer.jsp">
->          <jsp:param name="year" value="2019"/>
->      </jsp:include>
->  </body>
->  </html>
->  ```
+>```jsp
+><%@ page import="java.util.List" %>
+><%@ page import="java.util.ArrayList" %><%--
+>Created by IntelliJ IDEA.
+>User: AlexanderBai
+>Date: 2019/3/21
+>Time: 14:13
+>To change this template use File | Settings | File Templates.
+>--%>
+><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+><html>
+><head>
+><title>Demo</title>
+></head>
+><body>
+><%
+>List<String> list=new ArrayList<>();
+>list.add("Today");
+>list.add("is");
+>list.add("a");
+>list.add("great");
+>list.add("day.");
+>%>
+>
+><table width="200px" align="center" border="1" cellspacing="0">
+><%for (String str : list) {%>
+><tr>
+><td>
+><%= str%>
+></td>
+></tr>
+><%}%>
+></table>
+><jsp:include page="footer.jsp">
+><jsp:param name="year" value="2019"/>
+></jsp:include>
+></body>
+></html>
+>```
 >
 >- footer.jsp
 >
->  ```jsp
->  <%--
->    Created by IntelliJ IDEA.
->    User: AlexanderBai
->    Date: 2019/3/21
->    Time: 14:27
->    To change this template use File | Settings | File Templates.
->  --%>
->  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->  <html>
->  <head>
->      <title>footer</title>
->  </head>
->  <body>
->      <hr>
->      <p style="text-align: center">
->          copyrigth@<%=request.getParameter("year")%>
->      </p>
->  </body>
->  </html>
->  ```
+>```jsp
+><%--
+>Created by IntelliJ IDEA.
+>User: AlexanderBai
+>Date: 2019/3/21
+>Time: 14:27
+>To change this template use File | Settings | File Templates.
+>--%>
+><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+><html>
+><head>
+><title>footer</title>
+></head>
+><body>
+><hr>
+><p style="text-align: center">
+>copyrigth@<%=request.getParameter("year")%>
+></p>
+></body>
+></html>
+>```
 >
 >- 运行结果
 >
->  ![1553150400585](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553150400585.png)
+>![1553150400585](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553150400585.png)
 >
 >- ```php+HTML
 >  因为指令 <%@include 会导致两个jsp合并成为同一个java文件，所以就不存在传参的问题，demo.jsp 里定义的变量，直接可以在footer.jsp中访问。
 >  而动作<jsp:include />其实是对footer.jsp进行了一次独立的访问，那么就有传参的需要。
 >  ```
+>```
+>
+>```
+>
+>```
+>
+>```
+>
+>```
+>
+>```
+>
+>```
+>
+>```
 
 #### 4、cookie与session
 
@@ -491,67 +520,67 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >
 > - ![1553153012112](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553153012112.png)
 
-##### （2）、cookie原理示意图
+#####（2）、cookie原理示意图
 
-![](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553154152116.png)
+![](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553154152116.png) 
 
-- **session（会话）：**
+#####（3）、认识session（会话）
 
-  - 指用户打开一个网站，不管在**这个网站中**浏览了多少页面，点击了多少链接，知道用户关闭浏览器为止，都属于同一个会话
-  - 比如我们登录了淘宝网之后，不管我们跳到哪一个商店或是有多少货物添加了购物车，始终都是在自己所属的session里面，实质上session起到一个跟踪用户的作用。
+- 指用户打开一个网站，不管在**这个网站中**浏览了多少页面，点击了多少链接，知道用户关闭浏览器为止，都属于同一个会话
+- 比如我们登录了淘宝网之后，不管我们跳到哪一个商店或是有多少货物添加了购物车，始终都是在自己所属的session里面，实质上session起到一个跟踪用户的作用。
 
-  > - **setSession.jsp**
-  >
-  >   ```jsp
-  >   <%--
-  >     Created by IntelliJ IDEA.
-  >     User: AlexanderBai
-  >     Date: 2019/3/21
-  >     Time: 14:55
-  >     To change this template use File | Settings | File Templates.
-  >   --%>
-  >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-  >   <html>
-  >   <head>
-  >       <title>setSession</title>
-  >   </head>
-  >   <body>
-  >       <%
-  >           session.setAttribute("name","AlexanderBai");
-  >       %>
-  >       <a href="getSession.jsp">跳转到获取Session的页面</a>
-  >   </body>
-  >   </html>
-  >   ```
-  >
-  > - **getSession.jsp**
-  >
-  >   ```jsp
-  >   <%--
-  >     Created by IntelliJ IDEA.
-  >     User: AlexanderBai
-  >     Date: 2019/3/21
-  >     Time: 14:55
-  >     To change this template use File | Settings | File Templates.
-  >   --%>
-  >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-  >   <html>
-  >   <head>
-  >       <title>getSession</title>
-  >   </head>
-  >   <body>
-  >       <%
-  >           String name= (String) session.getAttribute("name");
-  >       %>
-  >       session中的name：
-  >       <%=
-  >          name
-  >       %>
-  >   </body>
-  >   </html>
-  >   ```
+> - **setSession.jsp**
+>
+>   ```jsp
+>   <%--
+>     Created by IntelliJ IDEA.
+>     User: AlexanderBai
+>     Date: 2019/3/21
+>     Time: 14:55
+>     To change this template use File | Settings | File Templates.
+>   --%>
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <html>
+>   <head>
+>       <title>setSession</title>
+>   </head>
+>   <body>
+>       <%
+>           session.setAttribute("name","AlexanderBai");
+>       %>
+>       <a href="getSession.jsp">跳转到获取Session的页面</a>
+>   </body>
+>   </html>
+>   ```
+>
+> - **getSession.jsp**
+>
+>   ```jsp
+>   <%--
+>     Created by IntelliJ IDEA.
+>     User: AlexanderBai
+>     Date: 2019/3/21
+>     Time: 14:55
+>     To change this template use File | Settings | File Templates.
+>   --%>
+>   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <html>
+>   <head>
+>       <title>getSession</title>
+>   </head>
+>   <body>
+>       <%
+>           String name= (String) session.getAttribute("name");
+>       %>
+>       session中的name：
+>       <%=
+>          name
+>       %>
+>   </body>
+>   </html>
+>   ```
 
-#### （2）、session原理示意图
+#####（4）、session原理示意图
 
 ![1553155409479](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553155409479.png)
 
@@ -623,9 +652,9 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >       >       %>
 >       >    <jsp:forward page="getContext.jsp"/> 
 >       >   ```
->       >
+>       >    
 >       > - 服务器端跳转
->       >
+>       >    
 >       > - ```jsp
 >       >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 >       >       <%
@@ -681,8 +710,6 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >       <%=application.getAttribute("name")%>
 >   ```
 
-
-
 #### 6、JSP隐式对象
 
 ![1553160108243](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553160108243.png)
@@ -700,73 +727,396 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 
 - >- web.xml
   >
-  >  ```
-  >  <?xml version="1.0" encoding="UTF-8"?>
-  >  <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  >           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  >           xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-  >           version="4.0">
-  >  
-  >      <!-- 把testconfig.jsp配置为一个Servlet-->
-  >      <servlet>
-  >          <servlet-name>testconfig</servlet-name>
-  >          <jsp-file>/testconfig.jsp</jsp-file>
-  >  
-  >          <!-- 配置初始化参数-->
-  >          <init-param>
-  >              <param-name>database-ip</param-name>
-  >              <param-value>127.0.0.1</param-value>
-  >          </init-param>
-  >      </servlet>
-  >  
-  >      <!--将路径testconfig映射到testconfig.jsp -->
-  >      <servlet-mapping>
-  >          <servlet-name>testconfig</servlet-name>
-  >          <url-pattern>/testconfig</url-pattern>
-  >      </servlet-mapping>
-  >      
-  >  </web-app>
-  >  ```
+  >```
+  ><?xml version="1.0" encoding="UTF-8"?>
+  ><web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  >      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  >      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  >      version="4.0">
+  >
+  > <!-- 把testconfig.jsp配置为一个Servlet-->
+  > <servlet>
+  >     <servlet-name>testconfig</servlet-name>
+  >     <jsp-file>/testconfig.jsp</jsp-file>
+  >
+  >     <!-- 配置初始化参数-->
+  >     <init-param>
+  >         <param-name>database-ip</param-name>
+  >         <param-value>127.0.0.1</param-value>
+  >     </init-param>
+  > </servlet>
+  >
+  > <!--将路径testconfig映射到testconfig.jsp -->
+  > <servlet-mapping>
+  >     <servlet-name>testconfig</servlet-name>
+  >     <url-pattern>/testconfig</url-pattern>
+  > </servlet-mapping>
+  > 
+  ></web-app>
+  >```
   >
   >- testconfig.jsp
   >
-  >  ```jsp
-  >  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-  >  database-ip:<%=config.getInitParameter("database-ip")%>
-  >  ```
+  >```jsp
+  ><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  >database-ip:<%=config.getInitParameter("database-ip")%>
+  >```
 
 - exception
 
   > - try.jsp
   >
-  >   ```jsp
-  >   
-  >   <%@page
-  >           contentType="text/html;charset=UTF-8" language="java"
-  >           errorPage="catch.jsp"
-  >   %>
-  >   <%
-  >           int[] a = new int[10];
-  >           a[20]=2;
-  >   %>
-  >   ```
+  > ```jsp
+  > 
+  > <%@page
+  >        contentType="text/html;charset=UTF-8" language="java"
+  >        errorPage="catch.jsp"
+  > %>
+  > <%
+  >        int[] a = new int[10];
+  >        a[20]=2;
+  > %>
+  > ```
   >
   > - catch.jsp
   >
-  >   ```jsp
-  >   
-  >   <%@ page
-  >           contentType="text/html;charset=UTF-8" language="java"
-  >           isErrorPage="true"
-  >   %>
-  >   <%=exception%>
-  >   ```
+  > ```jsp
+  > 
+  > <%@ page
+  >        contentType="text/html;charset=UTF-8" language="java"
+  >        isErrorPage="true"
+  > %>
+  > <%=exception%> 
+  > ```
+
+
+####7、JSTL
+
+> - set 
+> - out
+> - remove
+
+  ```jsp
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+  
+  <c:set var="name" value="${'AlexanderBai'}" scope="request"/>
+  
+  通过标签获取name：<c:out value="${name}"/><br>
+  
+  <c:remove var="name" scope="request"/><br>
+  
+  通过标签获取name：<c:out value="${name}"/><br>
+  ```
+
+- if-else
+
+  - JSTL 通过**<c: if test** 进行条件判断，但是没有**<c:else** 语句，所以常使用**<c: if取反**
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+           pageEncoding="UTF-8" import="java.util.*"%>
+  
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  
+  <c:set var="hp" value="${10}" scope="request" />
+  
+  <c:if test="${hp<5}">
+      <p>这个英雄要挂了</p>
+  </c:if>
+  
+  <c:if test="${!(hp<5)}">
+      <p>这个英雄觉得自己还可以再抢救抢救</p>
+  </c:if>
+  
+  <%
+      pageContext.setAttribute("AlexanderBai", null);
+      pageContext.setAttribute("lastwords", "");
+      pageContext.setAttribute("items", new ArrayList());
+  %>
+  
+  <c:if test="${empty AlexanderBai}">
+      <p>没有装备武器</p>
+  </c:if>
+  <c:if test="${empty lastwords}">
+      <p>挂了也没有遗言</p>
+  </c:if>
+  <c:if test="${empty items}">
+      <p>物品栏为空</p>
+  </c:if>
+  ```
+
+- choose
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+  	pageEncoding="UTF-8" import="java.util.*"%>
+  
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  
+  <c:set var="hp" value="${3}" scope="request" />
+  
+  <c:choose>
+      <c:when test="${hp<5}">
+  		<p>这个英雄要挂了</p>
+  	</c:when>
+  	<c:otherwise>
+  		<p>这个英雄觉得自己还可以再抢救抢救</p>
+  	</c:otherwise>
+  </c:choose>
+  ```
+
+- for Each
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+  	pageEncoding="UTF-8" import="java.util.*"%>
+  
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  
+  <%
+  	List<String> heros = new ArrayList<String>();
+  	heros.add("塔姆");
+  	heros.add("艾克");
+  	heros.add("巴德");
+  	heros.add("雷克赛");
+  	heros.add("卡莉丝塔");
+  	request.setAttribute("heros",heros);
+  %>
+  
+  <!-- 使用jsp中的for循环来遍历List -->
+  <table width="200px" align="center" border="1" cellspacing="0">
+  <tr>
+      <td>编号</td>
+      <td>英雄</td>
+  </tr>
+    
+  <%
+  int i =0;
+  for (String hero : heros) {
+  i++;
+  %>
+   
+  <tr>
+      <td><%=i%></td>
+      <td><%=hero%></td>
+  </tr>
+   
+  <%}%>
+    
+  </table>
+  
+  <br>
+  <!-- 使用JSTL中的c:forEach 循环来遍历List -->
+  <table width="200px" align="center" border="1" cellspacing="0">
+  <tr>
+      <td>编号</td>
+      <td>英雄</td>
+  </tr>
+    
+  <c:forEach items="${heros}" var="hero" varStatus="st"  >
+  	<tr>
+  	    <td><c:out value="${st.count}" /></td>
+  	    <td><c:out value="${hero}" /></td>
+  	</tr>
+  </c:forEach>
+  </table>
+  ```
+
+  > - 运行结果
+  >
+  > | 编号 |   英雄   |
+  > | :--: | :------: |
+  > |  1   |   塔姆   |
+  > |  2   |   艾克   |
+  > |  3   |   巴德   |
+  > |  4   |  雷克赛  |
+  > |  5   | 卡莉丝塔 |
+  >
+  > | 编号 |   英雄   |
+  > | :--: | :------: |
+  > |  1   |   塔姆   |
+  > |  2   |   艾克   |
+  > |  3   |   巴德   |
+  > |  4   |  雷克赛  |
+  > |  5   | 卡莉丝塔 |
+
+- for Tokens
+
+  - 用于字符串拆分，可以指定多个分割符
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+      pageEncoding="UTF-8" import="java.util.*"%>
+   
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+   
+  <c:set var="heros" value="塔姆,艾克;巴德|雷克赛!卡莉丝塔" /> 
+  
+  <c:forTokens items="${heros}" delims=":;|!" var="hero">
+  	<c:out value="${hero}" /> <br />
+  </c:forTokens>
+  ```
+
+- fmt:formNUmber 格式化数字
+
+  - **<fmt:formatNumber** 表示格式化数字
+  - **minFractionDigits** 小数点至少要有的位数
+  - **maxFractionDigits** 小数点最多能有的位数
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+      pageEncoding="UTF-8" import="java.util.*"%>
+      
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix='fmt' %>  
+  
+  <c:set var="money" value="888.8" />
+  <c:set var="pi" value="3.1415926" />
+  最少两个小数点:
+  <fmt:formatNumber type="number" value="${money}" minFractionDigits="2"/>
+  <br>
+  最多两个小数点:
+  <fmt:formatNumber type="number" value="${pi}" maxFractionDigits="2" />
+  ```
+
+- frm:formatDate 格式化日期
+
+  -  **<fmt:formatDate** 表示格式化日期
+
+  | **yyyy** 表示年份 | a 表示是上午还是下午 |
+  | :---------------: | :------------------: |
+  |  **MM** 表示月份  |   **HH** 表示小时    |
+  |  **dd** 表示日期  |   **mm** 表示分钟    |
+  | **E **表示星期几  |    **ss** 表示秒     |
+  |  **S** 表示毫秒   |    **z** 表示时区    |
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+      pageEncoding="UTF-8" import="java.util.*"%>
+      
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix='fmt' %>  
+  
+  <%
+  	Date now = new Date();
+  	pageContext.setAttribute("now",now);
+  %>
+  
+  完整日期: <fmt:formatDate value="${now}" pattern="G yyyy年MM月dd日 E"/><br>
+  完整时间: <fmt:formatDate value="${now}" pattern="a HH:mm:ss.S z"/><br>
+  常见格式: <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/>
+  ```
+
+  运行结果：![1553309769371](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553309769371.png)
+
+- fn:
+
+#### 8、EL
+
+- 作用域优先级
+  - 根据pageContext>request>session>application的顺序
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+ 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ 
+<c:set var="name" value="${'AlexanderBai-pageContext'}" scope="page" />
+<c:set var="name" value="${'AlexanderBai-request'}" scope="request" />
+<c:set var="name" value="${'AlexanderBai-session'}" scope="session" />
+<c:set var="name" value="${'AlexanderBai-application'}" scope="application" />
+ 
+4个作用域都有name,优先获取出来的是 ： ${name}
+```
+
+运行结果：![1553310060044](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553310060044.png)
+
+-  结合JSTL的**<c:forEach**
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+      pageEncoding="UTF-8" import="java.util.*"%>
+   
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+   
+  <%
+      List<String> heros = new ArrayList<String>();
+      heros.add("塔姆");
+      heros.add("艾克");
+      heros.add("巴德");
+      heros.add("雷克赛");
+      heros.add("卡莉丝塔");
+      request.setAttribute("heros",heros);
+  %>
+   
+  <table width="200px" align="center" border="1" cellspacing="0">
+  <tr>
+      <td>编号</td>
+      <td>英雄</td>
+  </tr>
+     
+  <c:forEach items="${heros}" var="hero" varStatus="st"  >
+      <tr>
+          <td>${st.count}</td>
+          <td>${hero}</td>
+      </tr>
+  </c:forEach>
+  </table>
+  ```
+
+运行结果：![1553310437642](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553310437642.png)
+
+- eq（equal的缩写）:进行条件判断
+
+  ```jsp
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+      pageEncoding="UTF-8" import="java.util.*"%>
+   
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+  
+  <%
+  request.setAttribute("killNumber", "10");
+  %>
+  
+  c:if 的用法，运行结果：
+  <c:if test="${killNumber>=10}">
+  超神
+  </c:if>
+  <c:if test="${killNumber<10}">
+  还没超神
+  </c:if>
+  <br>
+  c:choose 的用法，运行结果：
+  
+  <c:choose>
+      <c:when test="${killNumber>=10}">
+      	超神
+  	</c:when>
+  	<c:otherwise>
+  		还没超神
+  	</c:otherwise>
+  </c:choose>
+  <br>
+  EL表达式eq的用法，运行结果：
+  ${killNumber ge 10? "超神":"还没超神" }
+  ```
 
   
 
-  #### 7、JSTL
 
-  #### 8、EL表达式语言
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
