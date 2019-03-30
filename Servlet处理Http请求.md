@@ -274,10 +274,18 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >
 >```
 >
+>```
+>
+>```
+>
 >- ```jsp
 >  <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response，getWriter()进行输出 --%>
 >  <%--  response.getWriter().println(new Date().toString());  --%>
 >  ```
+>```
+>
+>```
+>
 >```
 >
 >```
@@ -453,12 +461,20 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >```
 >
 >```
+>
+>```
+>
+>```
+>
+>```
+>
+>```
 
 #### 4、cookie与session
 
 #####（1）、认识cookie
 
-- cookie是一种**浏览器与服务器交互的数据**，平常我们登录各个网站，会显示多长时间内保持登录状态，就是有cookie实现。
+- cookie是一种**浏览器与服务器交互的数据**，平常我们登录各个网站，会显示多长时间内保持登录状态，就是由cookie实现。
 - cookie由**服务器创建**，但不会保存在服务器上，创建好之后发送给浏览器，浏览器**保存在用户本地**
 - 再次访问网站时，带上这个cooki
 
@@ -625,43 +641,44 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >
 >   - setContext.jsp
 >
->     ```jsp
->     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->         <%
->             request.setAttribute("name","AlexanderBai");
->         %>
->     ```
+> ```jsp
+> <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <%
+>       request.setAttribute("name","AlexanderBai");
+>   %>
+> ```
 >
 >   - getContex t.jsp
 >
->     ```jsp
->     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->         <%=Request.getAttribute("name")%>
->     ```
+> ```jsp
+> <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>   <%=Request.getAttribute("name")%>
+> ```
 >
 >     -   如果发生了**服务端跳转**，从setContext.jsp跳转到getContext.jsp，这其实，**还是一次请求**。 所以在getContext.jsp中，可以取到在requestContext中设置的值
 >
->       这也是一种**页面间传递数据的方式**  
+> 这也是一种**页面间传递数据的方式**  
 >
->       > - 客服端跳转
->       >
->       > - ```
->       >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->       >       <%
->       >           request.setAttribute("name","AlexanderBai");
->       >       %>
->       >    <jsp:forward page="getContext.jsp"/> 
->       >   ```
->       >    
->       > - 服务器端跳转
->       >    
->       > - ```jsp
->       >   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
->       >       <%
->       >           request.setAttribute("name","AlexanderBai");
->       >           response.sendRedirect("getContext.jsp");
->       >       %>
->       >   ```
+> >- 客服端跳转
+> >
+> >```xml
+> ><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+> >    <%
+> >        request.setAttribute("name","AlexanderBai");
+> >    %>
+> > <jsp:forward page="getContext.jsp"/> 
+> >```
+> >
+> >- 服务器端跳转
+> >
+> >  ```xml
+> >    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+> >        <%
+> >            request.setAttribute("name","AlexanderBai");
+> >          response.sendRedirect("getContext.jsp");
+> >  %>
+> >  ```
+>
 
 
 
