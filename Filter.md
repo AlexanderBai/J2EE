@@ -252,7 +252,13 @@ public void init(FilterConfig config) throws ServletException {
 - **FORWARD：**如果请求是通过forward()方法访问时，过滤器就会被调用。除此之外，过滤器不会被调用。
 - **ERROR：**如果目标资源是通过声明式异常处理机制调用时，过滤器就被调用。除此之外，过滤器不会被调用。
 
+### 六、Demo
 
+#### 1、Filter中文处理
+
+
+
+####2、Filter登录验证
 
 
 
