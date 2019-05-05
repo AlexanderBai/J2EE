@@ -133,7 +133,7 @@ public class LoginServlet extends HttpServlet {
 在请求方法相对应的服务器端处理方法中添加如下代码
 
 ```java
-req.setCharacterEncoding="UTF-8";//告诉服务器已utf-8解码
+req.setCharacterEncoding="UTF-8";//告诉服务器用utf-8解码
 resp.setCharacterEncoding="UTF-8";//以utf-8编码方式响应
 ```
 
@@ -141,7 +141,7 @@ resp.setCharacterEncoding="UTF-8";//以utf-8编码方式响应
 
 ####1、服务器端跳转（请求转发）
 
-Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**request**的**getRequestDispatcher()**方法，把同一个请求转发到另一个对象（HTML、JSP、Servlet等）
+Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**request**的**getRequestDispatcher()**方法，把同一个请求转发到另一个对象（可以是HTML、JSP、Servlet等）
 
 ```java
 req.getRequestDispatcher("success.html").forward(req,resp);
@@ -149,7 +149,7 @@ req.getRequestDispatcher("success.html").forward(req,resp);
 
 ####2、客服端跳转（重定向）
 
-> Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**sendRedirect()**方法（注意这里用的是**response**的方法），立即向客户端返回这个响应（在响应头中包含新请求所对应的URL），并告诉客户端必须再发送一个新的请求。
+> Http请求到服务器，服务器发现匹配的Servlet，当Servlet执行相应的步骤之后去执行**sendRedirect()**方法（注意这里用的是**response**的方法），立即向客户端返回这个响应（**在响应头中包含新请求所对应的URL**），并告诉客户端必须再发送一个新的请求。
 >
 > 紧接着客户端收到响应后再发送一个请求，服务器端收到新的请求后做出相应的处理。以上两个请求互不干扰、相互独立。
 
@@ -236,7 +236,7 @@ resp.sendRedirect("fail.html");
 
 ####1、认识JSP
 
-JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服务器转译为java文件，可以看出转译后的**.java**继承了**HttpJspBase**，而**HttpJspBase**继承了**HttpServlet**，所以JSP文件也是一个Servlet，之后再编译运行
+JSP文件其实也是一个Servlet(**继承HttpServlet**)，JSP文件会被服务器转译为java文件，可以看出转译后的**.java**继承了**HttpJspBase**，而**HttpJspBase**继承了**HttpServlet**，所以JSP文件也是一个Servlet，之后再编译运行
 
 
 
@@ -265,34 +265,11 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >- ```jsp
 >  <%@ page import="java.util.Date" %> 
 >  <%-- 这一行是JSP的<@ page指令  import 导入的包以逗号分隔-->
->  ```
->```
->
->```
->
->```
->
->```
->
->```
->
->```
->
->- ```jsp
->  <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response，getWriter()进行输出 --%>
+>      
+>  
+>  <%=new Date().toString()%> <%--  <%= %>相当于Servlet中的response.getWriter()进行输出 --%>
 >  <%--  response.getWriter().println(new Date().toString());  --%>
 >  ```
->```
->
->```
->
->```
->
->```
->
->```
->
->```
 
 
 
@@ -317,16 +294,16 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 - 静态内容
   - 就是html,css,javascript等内容
 - 指令
-  - 以<%@开始 %> 结尾，比如<%@page import="java.util.*"%>
-- 表达式 <%=%>
+  - 以`<%@ 开始  %> `结尾，比如<%@page import="java.util.*"%>
+- 表达式 `<%=  %>`
   - 用于输出一段html
 - Scriptlet
-  - 在<%%> 之间，可以写任何java 代码
+  - 在`<%   %> `之间，可以写任何java 代码
 -  声明
-  - 在<%!%> 之间可以声明字段或者方法。但是不建议这么做。
+  - 在`<%!    %>` 之间可以声明字段或者方法。但是不建议这么做。
 -  动作
-  - <jsp:include page="FileName" > 在jsp页面中包含另一个页面。
-- 注释 <%-- -- %>
+  - `<jsp:include page="FileName" >` 在jsp页面中包含另一个页面。
+- 注释 `<%-- -- %>`
   - 不同于 html的注释 <!-- --> 通过jsp的注释，浏览器也看不到相应的代码，相当于在servlet中注释掉了
 
 ![1553148897103](C:\Users\AlexanderBai\AppData\Roaming\Typora\typora-user-images\1553148897103.png)
@@ -446,6 +423,10 @@ JSP文件其实也是一个Servlet(**继承HTTPServlet**)，JSP文件会被服�
 >  因为指令 <%@include 会导致两个jsp合并成为同一个java文件，所以就不存在传参的问题，demo.jsp 里定义的变量，直接可以在footer.jsp中访问。
 >  而动作<jsp:include />其实是对footer.jsp进行了一次独立的访问，那么就有传参的需要。
 >  ```
+>```
+>
+>```
+>
 >```
 >
 >```
